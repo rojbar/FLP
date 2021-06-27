@@ -1,0 +1,151 @@
+# FLP
+
+* rojbar
+* Matomaral
+* thiagoc789
+
+## Talleres
+
+### Evaluador de talleres
+El evaluador de talleres es una macro que permite realizar tests de las funciones pedidas para determinado taller.
+
+### Taller 1
+#### Puntos
+
+> |1| |2| |3| |4| |5| |6| |7| |8| |9| |10| |11| |12| |13| |14| |15| |16| |17|
+
+### Taller 2
+#### Puntos 
+
+> |1| |2| |3| |4| |5|
+
+## Proyecto B-SAT
+> B-SAT.rkt
+### Gramatica
+ 
+ GRAMATICAS DIGITOS y LETRAS
+
+ <letter>        ::=  A . . Z | a . . z                                             //Implementada (SSLGEN)
+ <letterS> ::= <letter>
+ <digit>         ::=  0 . . 9                                                       //Implementada (SSLGEN)
+ <whitespace>    ::=  " "                                                           //Implementada (SSLGEN)
+
+ GRAMATICAS DE DATOS
+ 
+
+ <integer>       ::= {<digit>}+                                                     //Implementada (lexica)
+ <float>         ::= {<digit>}+ concat "." concat {<digit>}+                        //Implementada (lexica)
+
+ <num>           ::= <integer> | <float>                                            //Implementada (sintactica)               
+
+
+
+ <character>     ::= "'"{<letter> | <digit>}"'"                                     //Implementada (lexica) (Se puede cambiar a sintactica)
+ <characterS>    ::= "'"{<letterS> | <integer>}"'" 
+ <string>        ::= "`"{<letter> | <digit> | whitespace}"`"*                       //Implementada (lexica) (Se puede cambiar a sintactica)
+ <stringS>       ::= "'"{<letterS> | <integer>}"'"
+
+
+ <boolean>       ::= true | false                                                   //Implementada (sintactica) 
+ <hexadecimal>   ::= empty | (integer <hexadecimal>)                                //Implementada (sintactica) 
+ 
+ GRAMATICAS DE IDENTIFICADORES
+
+ <identifier>    ::= <letter> {<letter> | <digit> }∗                                //Implementada (lexica)
+ <identifierS>   ::= <letterS> {<letterS> | <integer> }∗                            //Se puede implementar
+ GRAMATICAS DE DATOS PREDEFINIDOS
+
+ <list> ::= ({<expression>}∗(,))                                                    //Implementada (sintactica)
+
+ <vector> ::= vector({<expression>}∗ (,))                                           //Implementada (sintactica)                                 
+
+ <dictionary> ::= dictionary({<identifier> -> <expression>}* (;))                   //Implementada (sintactica)
+
+
+
+ <instancia-sat> ::= FNC <integer> (<clausula-or>)* ("and")                          //Implementada (sintactica)
+ <clausula-or> ::= (<integer>)* ("or")                                               //Implementada (sintactica)
+ <solve-of-instancia-sat> ::= $identifier.solve()                                    //Implementada (sintactica)
+
+
+
+
+  BNF para las expresiones del lenguaje:
+
+  <program>      ::= <expression>                                                    //Implementada
+  <expression>
+                 IDENTIFICADORES
+                 ::= <identifier>                                                    //Implementada
+                 PASO POR REFERENCIA
+                 ::= &<identifier>                                                   //Implementada               
+                 DATOS
+                 ::= <num>                                                           //Implementada
+                 ::= <string>                                                        //Implementada
+                 ::= <character>                                                     //Implementada
+                 ::= <hexadecimal>                                                   //Implementada
+                 DATOS PREDEFINIDOS
+                 ::= <list>                                                          //Implementada
+                 ::= <vector>                                                        //Implementada
+                 ::= <dictionary>                                                    //Implementada
+                 GRAMATICA DE LLAMADO DE PRIMITIVAS
+                 ::= [<primitive> {<expression>}+(,))]                               //Implementada 
+                 GRAMATICA DE DEFINICIONES
+                 ::= var {<identifier> = <expression>}∗ (,) in <expression>         //MUTABLES         //Implementada 
+                 ::= cons{<identifier> = <expression>}∗ (,) in <expression>         //INMUTABLES       //Implementada 
+                 ::= recursive {<identifier> ({<identifier> }∗ (,)) = <expression> }∗ in <expression>  //Implementada
+                 GRAMATICA DE ASIGNACION DE VARIABLES
+                 ::= set identifier = expression 
+                 GRAMATICA DE ESTRUCTURAS DE CONTROL
+                 ::= "begin" {<expression>}+ (;) "end"                                //Implementada                                
+                 ::= if (<expr-bool>) then <expression> else <expression>             //Implementada                                
+                 ::= while (<expr-bool>) do <expression>                              //Implementada                             
+                 ::= for (<identifier> = <expression> concat (;) <to> <expression>) do <expression>  //Implementada
+                 GRAMATICA DE PROCEDIMIENTOS
+                 ::= procedure({<indentifier>}* (,)) { <expression> }                       //Implementada
+                 ::= invoke <expression> ({<expression>}*(,))                               //Implementada 
+                 GRAMATICA INSTANCIA SAT
+                 ::= <instancia-sat>                                                        //Implementada
+                 ::= <solve-of-instancia-sat>                                               //Implementada
+                 PRINT
+                 ::= print(expression)                                                      //Implementada
+  GRAMATICA PARA (to | down)                                                                //Implementada (sintactica)                             
+  <to> ::= "to" | "downto"
+
+  GRAMATICA PARA PRIMITIVAS
+  <primitive> 
+  PRIMITIVAS PARA NUMEROS                                                                   //Implementada (sintactica)
+                ::= + | - | * | / | %                                                           
+                ::=  add1 | sub1
+
+                  
+  PRIMITIVAS PARA CADENAS                                                                   //Implementada (sintactica)
+                ::= concat | length
+
+
+  PRIMITIVAS PARA LISTAS                                                                    //Implementada (sintactica)
+                ::= create-list | append
+                ::= empty? | list? | cabeza | cola | empty                                                          
+                  
+  PRIMITIVAS PARA REGISTROS                                                                 //Implementada (sintactica)
+                ::= create-dictionary | dictionary? | set-dictionary | ref-dictionary
+                  
+  PRIMITIVAS PARA VECTORES                                                                   //Implementada (sintactica)
+                ::= ref-vector | set-vector |create-vector | vector?
+                   
+                  
+  GRAMATICA PARA EXPRESIONES BOOLEANAS                                                       //Implementada (sintactica)
+   <expr-bool>
+               ::= <boolean-primitive>    (<expression> , <expression>)
+               ::= <binary-boolean-primitive>(<expr-bool >, <expr-bool >)
+               ::= <unary-boolean-primitive> (<expr-bool>)
+               ::= <boolean>
+
+  <boolean-primitive> ::= < | > | <= | >= | == | <>
+
+  <binary-boolean-primitive> ::= && | ||
+                  
+  <unary-boolean-primitive> ::= not
+  
+### Interpretador
+### Lenguaje
+

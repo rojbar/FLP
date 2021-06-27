@@ -1,0 +1,52 @@
+;; TEST CASES MADE BY ROJBAR 
+
+;; PUNTO 1
+;; REQUIERE SUS DEFINICIONES JUNTO A LAS DEFINIDAS POR EL PROFESOR(suma, multiplicacion, resta, potencia, factorial) 
+(writeln (test-case successor (zero) '(1))) 
+(writeln (test-case successor empty '(1)))  
+(writeln (test-case successor '() '(1)))  
+(writeln (test-case successor '(15) '(0 1))) 
+(writeln (test-case successor '(15 15) '(0 0 1))) 
+(writeln (test-case successor '(0 15)  '(1 15))) 
+(writeln (test-case successor '(15 8)  '(0 9)))  
+(writeln (test-case successor '(0 1 0 1) '(1 1 0 1))) 
+
+(writeln (test-case predecessor '(0 1) '(15))) 
+(writeln (test-case predecessor '(1) '())) 
+(writeln (test-case predecessor '(0 1 1) '(15 0 1))) 
+(writeln (test-case predecessor (zero) '())) 
+(writeln (test-case predecessor '(10) '(9))) 
+
+(writeln (test-case suma '(1) '(15) '(0 1))) 
+(writeln (test-case suma (zero) (zero) '())) 
+(writeln (test-case suma '(9) '(3) '(12))) 
+(writeln (test-case suma '(15 1) '(15) '(14 2))) 
+(writeln (test-case suma (zero) '(15) '(15))) 
+(writeln (test-case suma '(15) (zero) '(15))) 
+(writeln (test-case suma '(0 1 1) '(0 3 13) '(0 4 14))) 
+(writeln (test-case suma '(15 1) '(0 3 13) '(15 4 13))) 
+(writeln (test-case suma '(15 15) '(0 3 13) '(15 2 14)))
+
+(writeln (test-case resta '(1) '(2) '())) 
+(writeln (test-case resta '(0 1) '(0 1) '())) 
+(writeln (test-case resta '(0 1) '(2) '(14))) 
+(writeln (test-case resta '(3 3 4 5) '(0 2 3) '(3 1 1 5))) 
+(writeln (test-case resta '(3 3) '(4 2) '(15)))  
+
+(writeln (test-case multiplicacion '(3) '(9) '(11 1))) 
+(writeln (test-case multiplicacion '(2) (zero) '())) 
+(writeln (test-case multiplicacion '(2) '(0 2 3) '(0 4 6))) 
+(writeln (test-case multiplicacion '(0 1) '(0 1) '(0 0 1))) 
+(writeln (test-case multiplicacion '(0 2 3) '(0 1) '(0 0 2 3)))
+(writeln (test-case multiplicacion '(0 1 2) '(10) '(0 10 4 1)))
+
+(writeln (test-case potencia '(2) '(15) '(0 0 0 8)))  
+(writeln (test-case potencia '(0 14) '(2) '(0 0 4 12)))  
+(writeln (test-case potencia '(3) (zero) '(1))) 
+(writeln (test-case potencia (zero) '(1) '())) 
+
+(writeln (test-case factorial '(3) '(6))) 
+(writeln (test-case factorial '(10) '(6))) 
+(writeln (test-case factorial (zero) '(1))) 
+(writeln (test-case factorial '(5) '(8 7))) 
+(writeln (test-case factorial '(7) '(0 11 3 1)))  
